@@ -22,7 +22,7 @@ We observe that the distances from the Knight can be thought of as ‘octagonal 
 Create a function `solution(N)` for `2 < N < 200` which outputs the number of ways of stacking `N` identical blocks to form of a staircase, such that each step is 1 block wide & long, and there are at least 2 steps.
 
 ##### Solution outline
-This asks for the number of subsets of {1 ... N-1} which sum to N. The idea is to categorise partitions of integers by conditioning on the largest integer in each partition (for instance, partitions of 11 can be categorised as having largest digit 10 (just {10,1}), or 9 (just {9,2}), or 8 ({8,3} and {8,2,1}) and so on). In particular we label `C[i,j]` as the numbers of staircases with (i + 1) blocks and final step height ≤ j, computed by summing `C[i-k,k-1]` over suitable k, where k is the final step height for the (i + 1) block staircase. This is done within a matrix `C` to facilitate the diagonal sums and filling sections of rows which do not require compution. This could most likely be improved upon though by not storing so much information.
+This asks for the number of subsets of {1 ... N-1} which sum to N. The idea is to categorise partitions of integers by conditioning on the largest integer in each partition (for instance, partitions of 11 can be categorised as having largest digit 10 (just {10,1}), or 9 (just {9,2}), or 8 ({8,3} and {8,2,1}) and so on). In particular we label `C[i,j]` as the numbers of staircases with (i + 1) blocks and final step height ≤ j, computed by summing `C[i-k,k-1]` over suitable k, where k is the final step height for the (i + 1) block staircase. This is done within a matrix `C` to facilitate the diagonal sums and filling sections of rows which do not require compution. This could most likely be improved upon though by not storing as much information.
 
 **Examples**: 
 
@@ -73,7 +73,7 @@ We create a ‘non-normalised’ stochastic matrix `Q` by correcting empty rows 
 The following operator is defined on pairs of positive integers: `(a,b)` leads to `(2a,b - a)` if `a < b` (WLOG) and halts if `a = b`. Applied repeatedly this operator either eventually halts or cycles. Then, given a list of integers of length between `1` and `100`, with entries between `1` and `20^30 - 1`, the problem asks for `solution(list_ints)` to return the minimal size of a sublist with the property that all integers not in it can be paired to cycle indefinitely.
 
 ##### Solution outline
-For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b` being divisible by the odd part of their sum (that is, `a + b` divided by the largest power of 2 which divides `a + b`). Set up a list of pairs where each pair gives the distinct elements from the original list coupled with their number of occurrences. Sort in ascending order on the first entry, check whether elements fit the looping condition with further elements, removing instances of both when they do: for instance if there are 17 x 1s, 13 x 2s, 9 x 3s, 6 x 5s, then the list of pairs begins `[(1,17), (2,13), (3,9)  ...]`. `(1,2)` loop, so removing will update the list of pairs to `[(1,4), (3,9), (5,6) ...]`. `(1,3)` do not loop, `(1,5)` do, update to `[(3,9), (5,2) ...]` etc. If a pair cannot be looped with any further elements, record the second entry of this pair, and so on.
+For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b` being divisible by the odd part of their sum (that is, `a + b` divided by the largest power of 2 which divides `a + b`). Set up a list of pairs where each pair gives the distinct elements from the original list coupled with their number of occurrences. Sort in ascending order on the first entry, check whether elements fit the looping condition with further elements, removing instances of both when they do: for instance if there are 17 x 1s, 13 x 2s, 9 x 3s, 6 x 5s, then the list of pairs begins `[(1,17), (2,13), (3,9)  ...]`. `(1,2)` loop, so removing will update the list of pairs to `[(1,4), (3,9), (5,6) ...]`. `(1,3)` do not loop, `(1,5)` do, update to `[(3,9), (5,2) ...]` etc. If a pair cannot be looped with any further elements, record the second entry of this pair and discard.
 
 **Examples**:
 
@@ -85,7 +85,7 @@ For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b
 ### Non-equivalent colourings of a rectangular board
 
 ##### Problem
-Given an rectangular board and `c` colours, call 2 colourings equivalent if it is possible to get from one to the other by swapping rows and columns in some order. Create a function `solution(dim_x,dim_y,colours)` which returns the number of non-equivalent colourings of a board with given dimensions & number of colours.
+Given a rectangular board and `c` colours, call 2 colourings equivalent if it is possible to get from one to the other by swapping rows and columns in some order. Create a function `solution(dim_x,dim_y,colours)` which returns the number of non-equivalent colourings of a board with given dimensions & number of colours.
 
 ##### Solution outline
 We use Polyá’s enumeration theorem to produce a comparatively efficient solution. Rows and columns are independent, for each compute partitions of the integer length of each. Each partition is viewed as splitting distinguishable rows (or columns), symmetries are then computed combinatorially.
