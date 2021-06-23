@@ -36,10 +36,10 @@ This asks for the number of subsets of {1 ... N-1} which sum to N. The idea is t
 ### Rays on the 2-dimensional integer lattice
 
 ##### Problem
-In a rectangular room of given dimensions (no larger than `1500 x 1500`) and two integer-coordinate positions (a reference and a target, strictly inside the room), create a function `solution(room_dim,ref_pos,tgt_pos,max_distance)` which returns the number of ways a laser beam can travel from the reference point to the target if it is allowed to bounce off walls in the obvious way; in addition, the distance the beam can travel is bounded by some given integer value at most `10,000`, and the beam must not hit the reference point before the target.
+In a rectangular room of given dimensions (no larger than `1500 x 1500`) and two integer-coordinate positions (a reference and a target, strictly inside the room), create a function `solution(room_dim,ref_pos,tgt_pos,max_distance)` which returns the number of ways a laser beam can travel from the reference point to the target if it is allowed to bounce off walls in the obvious way; the laser can be pointed in any direction. In addition, the distance the beam can travel is bounded by some given integer value at most `10,000`, and the beam must not hit the reference point before the target.
 
 ##### Solution outline
-The room is thought of as mirrored on the integer lattice so that the beam travels in a single straight line. Unit vectors are computed for mirrored reference and target points which allows the conditions (total distance, discarding beam hitting reference first) to be checked easily, and suitable unit vectors are added to the desired set. This is at its most demanding when the ratio of the maximal beam distance to room size ratio is large.
+The room is thought of as mirrored on the integer lattice so that the beam travels in a single straight line. Unit vectors are computed for mirrored reference and target points which allows the conditions (total distance, discarding beam hitting reference first) to be checked easily, and suitable unit vectors are added to the desired set. This is at its most demanding when the ratio of the maximal beam distance to room size is large.
 
 **Example**: 
 
