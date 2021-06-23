@@ -7,10 +7,10 @@ Other than the first, these are level 3-5 challenges.
 
 ##### Problem
 For a rectangular chessboard of given dimensions `[M,N]` and two positions on the board `(x_A,y_A), (x_B,y_B)` write a function `solution([M,N],(x_A,y_A),(x_B,y_B)` which gives the fewest number of moves a Knight would need to get from one point to the other.
-
-##### Solution outline
+ 
+##### Solution outline ([full code](shortest-path-on-chessboard.py))
 We observe that the distances from the Knight can be thought of as ‘octagonal frames’ of width 2 squares. By mirroring so that the distination is at an origin, and the Knight in the upper right quadrant, one can easily describe shortest paths between frames till the 3x3 in which the Knight sits (at the bottom left), which can be written explicitly after some algebra (thus achieving constant time).
-
+ 
 **Examples**:
 
 `solution([10000,4000],(3927,31),(477,1022)) = 1725` (0.0000152 sec)
@@ -23,7 +23,7 @@ We observe that the distances from the Knight can be thought of as ‘octagonal 
 ##### Problem
 Create a function `solution(N)` for `2 < N < 200` which outputs the number of ways of stacking `N` identical blocks to form of a staircase, such that each step is 1 block wide & long, and there are at least 2 steps.
 
-##### Solution outline
+##### Solution outline ([full code](partitions-with-distinct-terms.py))
 This asks for the number of subsets of {1 ... N-1} which sum to N. The idea is to categorise partitions of integers by conditioning on the largest integer in each partition (for instance, partitions of 11 can be categorised as having largest digit 10 (just {10,1}), or 9 (just {9,2}), or 8 ({8,3} and {8,2,1}) and so on). In particular we label `C[i,j]` as the numbers of staircases with (i + 1) blocks and final step height ≤ j, computed by summing `C[i-k,k-1]` over suitable k, where k is the final step height for the (i + 1) block staircase. This is done within a matrix `C` to facilitate the diagonal sums and filling sections of rows which do not require compution. This could most likely be improved upon though by not storing as much information.
 
 **Examples**: 
@@ -38,7 +38,7 @@ This asks for the number of subsets of {1 ... N-1} which sum to N. The idea is t
 ##### Problem
 In a rectangular room of given dimensions (no larger than `1500 x 1500`) and two integer-coordinate positions (a reference and a target, strictly inside the room), create a function `solution(room_dim,ref_pos,tgt_pos,max_distance)` which returns the number of ways a laser beam can travel from the reference point to the target if it is allowed to bounce off walls in the obvious way; the laser can be pointed in any direction. In addition, the distance the beam can travel is bounded by some given integer value at most `10,000`, and the beam must not hit the reference point before the target.
 
-##### Solution outline
+##### Solution outline ([full code](rays-on-integer-lattice.py))
 The room is thought of as mirrored on the integer lattice so that the beam travels in a single straight line. Unit vectors are computed for mirrored reference and target points which allows the conditions (total distance, discarding beam hitting reference first) to be checked easily, and suitable unit vectors are added to the desired set. This is at its most demanding when the ratio of the maximal beam distance to room size is large.
 
 **Example**: 
@@ -55,7 +55,7 @@ An exotic chemical can be in some given number `N` of states with `N ≤ 10`. In
 
 Create a function `solution(M)` which, given a matrix `M` whose rows are the arrays associated to each state, returns the exact probabilities of ending in each of the terminal states, expressed as an array of numerators with a common denominator at the end (e.g. if states 4 and 6 are terminal, the output should look like `[a, b, d]` where `a/d` and `b/d` are the probabilities of ending in state 4 and 6 respectively).
 
-##### Solution outline
+##### Solution outline ([full code](absorption-probabilities.py))
 We create a ‘non-normalised’ stochastic matrix `Q` by correcting empty rows of `M` with a 1 on the diagonal entry (normalising other rows to make the matrix classically stochastic is not necessary and likely to induce float errors). For each terminal state, the probability of reaching it from state 0 can then be computed from the inverse of `Q` minus an incomplete identity matrix `J` (no 1s in terminal rows); in fact it suffices to get the top row of the adjugate, for columns whose index matches terminal rows indices. This is straightforward determinant computation, and finally the determinant of the `Q-J` is found, since its the inverse elements are those from the adjugate divided by this determinant. Gcd and moduli then give the required format.
 
 **Example**:
@@ -74,7 +74,7 @@ We create a ‘non-normalised’ stochastic matrix `Q` by correcting empty rows 
 ##### Problem
 The following operator is defined on pairs of positive integers: `(a,b)` leads to `(2a,b - a)` if `a < b` (WLOG) and halts if `a = b`. Applied repeatedly this operator either eventually halts or cycles. Then, given a list of integers of length between `1` and `100`, with entries between `1` and `20^30 - 1`, the problem asks for `solution(list_ints)` to return the minimal size of a sublist with the property that all integers not in it can be paired to cycle indefinitely.
 
-##### Solution outline
+##### Solution outline ([full code](maximal-pairing-of-integers.py))
 For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b` being divisible by the odd part of their sum (that is, `a + b` divided by the largest power of 2 which divides `a + b`). Set up a list of pairs where each pair gives the distinct elements from the original list coupled with their number of occurrences. Sort in ascending order on the first entry, check whether elements fit the looping condition with further elements, removing instances of both when they do: for instance if there are 17 x 1s, 13 x 2s, 9 x 3s, 6 x 5s, then the list of pairs begins `[(1,17), (2,13), (3,9)  ...]`. `(1,2)` loop, so removing will update the list of pairs to `[(1,4), (3,9), (5,6) ...]`. `(1,3)` do not loop, `(1,5)` do, update to `[(3,9), (5,2) ...]` etc. If a pair cannot be looped with any further elements, record the second entry of this pair and discard.
 
 **Examples**:
@@ -89,7 +89,7 @@ For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b
 ##### Problem
 Given a rectangular board and `c` colours, call 2 colourings equivalent if it is possible to get from one to the other by swapping rows and columns in some order. Create a function `solution(dim_x,dim_y,colours)` which returns the number of non-equivalent colourings of a board with given dimensions & number of colours.
 
-##### Solution outline
+##### Solution outline ([full code](non-equivalent-colourings.py))
 We use Polyá’s enumeration theorem to produce a comparatively efficient solution. Rows and columns are independent, for each compute partitions of the integer length of each. Each partition is viewed as splitting distinguishable rows (or columns), symmetries are then computed combinatorially.
 For each such partition, the corresponding cycle index term is found, and computed for the required number of colours `c`. This is then summed and divided by the number of row/column-permutations of the broad/matrix, that is `dim_x!dim_y!` by independence.
 
