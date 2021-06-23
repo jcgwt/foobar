@@ -1,5 +1,7 @@
 ## Solutions to a selection of Google FooBar challenges
 
+Other than the first, these are level 3-5 challenges.
+
 ------------------
 ###  Shortest path on a chessboard
 
@@ -46,7 +48,7 @@ The room is thought of as mirrored on the integer lattice so that the beam trave
 `solution([623,197],[2,3],[38,502],5200) = 690` (0.01556 sec)
 
 ------------------
-### Absorption probabilities
+### Absorption probabilities 
 
 ##### Problem
 An exotic chemical can be in some given number `N` of states with `N ≤ 10`. In discrete time, the material is able shift state. To each state is associated an array of length `N` describing the likelihood  of shifting from that state to each of the `N` others (as a ratio of `N` integers). For instance if state 2 is given the array `[0, 1, 3, 1]`, then in state 2, we would shift to states 0, 1, 2, 3 with likelihood 1 : 0 : 3 : 1. In other words a `1/5` chance of entering state 0 or 3, a `0` chance of entering states 1, and a `3/5` chance of remaining in state 2. A state is terminal if it consists of only 0s, and the starting state is state 0.
