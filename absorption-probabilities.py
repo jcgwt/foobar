@@ -17,10 +17,10 @@ def solution(M):
         m = []
         for k in [i for i in range(n) if i != t]:
             m.append(M[k,1:n])
-        p = abs(round(np.linalg.det(np.matrix(m)))) if n != 1 else 1
+        p = abs(round(np.linalg.det(np.array(m)))) if n != 1 else 1
         ps.append(p)
     # compute determinant of full matrix to scale entries above
-    dt = abs(round(np.linalg.det(np.matrix(M)))) if n != 1 else 1
+    dt = abs(round(np.linalg.det(np.array(M)))) if n != 1 else 1
     ps.append(dt)
 
     s = ps[0]
