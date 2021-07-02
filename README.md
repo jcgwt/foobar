@@ -11,7 +11,7 @@ For a rectangular chessboard of given dimensions `[M,N]` and two positions on th
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="shortest-path-on-chessboard.py">Code</a>
+ <b>Outline</b> / <a href="shortest-path-on-chessboard.py">Code</a> / <a href="test_shortest-path-on-chessboard.py">Tests</a>
  <p></p>
  
 We observe that the distances from the Knight can be thought of as ‘octagonal frames’ of width 2 squares. By mirroring so that the distination is at an origin, and the Knight in the upper right quadrant, one can easily describe shortest paths between frames till the 3x3 in which the Knight sits (at the bottom left), which can be written explicitly after some algebra (thus achieving constant time).
@@ -37,7 +37,7 @@ Create a function `solution(N)` for `2 < N < 200` which outputs the number of wa
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="partitions-with-distinct-terms.py">Code</a>
+ <b>Outline</b> / <a href="partitions-with-distinct-terms.py">Code</a> / <a href="test_partitions-with-distinct-terms.py">Tests</a>
  <p></p>
  
 This asks for the number of subsets of {1 ... N-1} which sum to N. The idea is to categorise partitions of integers by conditioning on the largest integer in each partition (for instance, partitions of 11 can be categorised as having largest digit 10 (just {10,1}), or 9 (just {9,2}), or 8 ({8,3} and {8,2,1}) and so on). In particular we label <code>C[i,j]</code> as the numbers of staircases with (i + 1) blocks and final step height ≤ j, computed by summing `C[i-k,k-1]` over suitable k, where k is the final step height for the (i + 1) block staircase. This is done within a matrix `C` to facilitate the diagonal sums and filling sections of rows which do not require compution. This could most likely be improved upon though by not storing as much information.
@@ -63,7 +63,7 @@ In a rectangular room of given dimensions (no larger than `1500 x 1500`) and two
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="rays-on-integer-lattice.py">Code</a>
+ <b>Outline</b> / <a href="rays-on-integer-lattice.py">Code</a> / <a href="test_rays-on-integer-lattice.py">Tests</a>
  <p></p>
  
 The room is thought of as mirrored on the integer lattice so that the beam travels in a single straight line. Unit vectors are computed for mirrored reference and target points which allows the conditions (total distance, discarding beam hitting reference first) to be checked easily, and suitable unit vectors are added to the desired set. This is at its most demanding when the ratio of the maximal beam distance to room size is large.
@@ -89,7 +89,7 @@ Create a function `solution(M)` which, given an list of arrays `M`, where each a
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="absorption-probabilities.py">Code</a>
+ <b>Outline</b> / <a href="absorption-probabilities.py">Code</a> / <a href="test_absorption-probabilities.py">Tests</a>
  <p></p>
  
 We create a ‘non-normalised’ stochastic matrix `Q` by correcting empty rows of `M` with a 1 on the diagonal entry (normalising other rows to make the matrix classically stochastic is not necessary and likely to induce float errors). For each terminal state, the probability of reaching it from state 0 can then be computed from the inverse of `Q` minus an incomplete identity matrix `J` (no 1s in terminal rows); in fact it suffices to get the top row of the adjugate, for columns whose index matches terminal rows indices. This is straightforward determinant computation, and finally the determinant of the `Q-J` is found, since its the inverse elements are those from the adjugate divided by this determinant. Gcd and moduli then give the required format.
@@ -118,7 +118,7 @@ The following operator is defined on pairs of positive integers: `(a,b)` leads t
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="maximal-pairing-of-integers.py">Code</a>
+ <b>Outline</b> / <a href="maximal-pairing-of-integers.py">Code</a> / <a href="test_maximal-pairing-of-integers.py">Tests</a>
  <p></p>
  
 For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b` being divisible by the odd part of their sum (that is, `a + b` divided by the largest power of 2 which divides `a + b`). Set up a list of pairs where each pair gives the distinct elements from the original list coupled with their number of occurrences. Sort in ascending order on the first entry, check whether elements fit the looping condition with further elements, removing instances of both when they do: for instance if there are 17 x 1s, 13 x 2s, 9 x 3s, 6 x 5s, then the list of pairs begins `[(1,17), (2,13), (3,9)  ...]`. `(1,2)` loop, so removing will update the list of pairs to `[(1,4), (3,9), (5,6) ...]`. `(1,3)` do not loop, `(1,5)` do, update to `[(3,9), (5,2) ...]` etc. If a pair cannot be looped with any further elements, record the second entry of this pair and discard.
@@ -142,7 +142,7 @@ Given a rectangular board and `c` colours, call 2 colourings equivalent if it is
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="non-equivalent-colourings.py">Code</a>
+ <b>Outline</b> / <a href="non-equivalent-colourings.py">Code</a> / <a href="test_non-equivalent-colourings.py">Tests</a>
  <p></p>
  
 We use Polyá’s enumeration theorem to produce a comparatively efficient solution. Rows and columns are independent, for each compute partitions of the integer length of each. Each partition is viewed as splitting distinguishable rows (or columns), symmetries are then computed combinatorially.
