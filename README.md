@@ -118,7 +118,7 @@ The following operator is defined on pairs of positive integers: `(a,b)` leads t
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="maximal-pairing-of-integers.py">Code</a> / <a href="test_maximal-pairing-of-integers.py">Tests</a>
+ <b>Outline</b> / <a href="maximal-pairing-of-integers.py">Code (Python)</a> / <a href="maximal-pairing-of-integers.cpp">Code (C++)</a> / <a href="test_maximal-pairing-of-integers.py">Tests</a>
  <p></p>
  
 For a pair `(a,b)` the cycling condition simply translates to neither `a` nor `b` being divisible by the odd part of their sum (that is, `a + b` divided by the largest power of 2 which divides `a + b`). Set up a list of pairs where each pair gives the distinct elements from the original list coupled with their number of occurrences. Sort in ascending order on the first entry, check whether elements fit the looping condition with further elements, removing instances of both when they do: for instance if there are 17 x 1s, 13 x 2s, 9 x 3s, 6 x 5s, then the list of pairs begins `[(1,17), (2,13), (3,9)  ...]`. `(1,2)` loop, so removing will update the list of pairs to `[(1,4), (3,9), (5,6) ...]`. `(1,3)` do not loop, `(1,5)` do, update to `[(3,9), (5,2) ...]` etc. If a pair cannot be looped with any further elements, record the second entry of this pair and discard.
