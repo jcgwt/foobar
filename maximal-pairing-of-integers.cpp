@@ -20,7 +20,7 @@ bool CompareSecondElement(const std::pair<int,int>& a, const std::pair<int,int>&
 
 bool Loops(int a, int b)
 {
-  if (a * b == 0) return true;
+  if (a * b == 0) return false;
 
   int n = a + b;
   while (n % 2 == 0) 
@@ -34,7 +34,7 @@ std::vector<std::pair<int, int>> CountOccurences(std::vector<int> ls)
   std::unordered_map<int, int> counts;
   for (int& n : ls) 
     counts[n]++;
-
+    
   std::vector<std::pair<int, int>> v_counts(counts.begin(), counts.end());
   std::sort(v_counts.begin(), v_counts.end(), CompareSecondElement);
   return v_counts;
@@ -47,32 +47,20 @@ int CountMinimalLoops(std::vector<std::pair<int, int>> counts)
   while (ex_it != counts.end())
   {   
     auto in_it = ex_it;
-    int& x = ex_it -> second;
-    int& y =  in_it -> second;
-
     while (in_it != counts.end())
     {
-      if (Loops((*ex_it).first, (*in_it).first))
-      {
-        if (x > y)
-        {
-          x -= y;
-          y = 0;
-        }
-        else if (x <= y)
-        {
-          y -= x;
-          x = 0;
-          break;
-        }
-      }
-      
+    int x = ex_it -> second;
+    int y =  in_it -> second;
+    if (Loops((*ex_it).first, (*in_it).first))
+    {
+      ex_it -> second = std::max(x-y,0);
+      in_it -> second = std::max(y-x,0);
+      if (x == 0) break;
+    }
     in_it = std::next(in_it, 1);
     }
-
-  imposs += x;
+  imposs += ex_it -> second;
   ex_it = std::next(ex_it, 1);
   }
-
   return imposs;
 }
