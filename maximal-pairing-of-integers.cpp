@@ -51,7 +51,7 @@ int CountMinimalLoops(std::vector<std::pair<int, int>> counts)
     {
     int x = ex_it -> second;
     int y =  in_it -> second;
-    if (Loops((*ex_it).first, (*in_it).first))
+    if (Loops(ex_it -> first, in_it -> first))
     {
       ex_it -> second = std::max(x-y,0);
       in_it -> second = std::max(y-x,0);
