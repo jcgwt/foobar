@@ -63,7 +63,7 @@ In a rectangular room of given dimensions (no larger than `1500 x 1500`) and two
 <details>
  <summary><b>Solution</b></summary>
  <p></p>
- <b>Outline</b> / <a href="rays-on-integer-lattice.py">Code</a> / <a href="test_rays-on-integer-lattice.py">Tests</a>
+ <b>Outline</b> / <a href="rays-on-integer-lattice.py">Code (Python)</a> / <a href="rays-on-integer-lattice.c">Code (C)</a> / <a href="test_rays-on-integer-lattice.py">Tests</a>
  <p></p>
  
 The room is thought of as mirrored on the integer lattice so that the beam travels in a single straight line. Unit vectors are computed for mirrored reference and target points which allows the conditions (total distance, discarding beam hitting reference first) to be checked easily, and suitable unit vectors are added to the desired set. This is at its most demanding when the ratio of the maximal beam distance to room size is large.
