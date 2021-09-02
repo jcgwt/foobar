@@ -102,7 +102,8 @@ int Partition(triple *tuples, int i, int j)
 {
   double pivot = tuples[j].ds;
   int p = i-1;
-  for (int q = i; q < j; q++) {
+  for (int q = i; q < j; q++) 
+  {
     if (tuples[q].ds <= pivot) 
     {
       p++;
